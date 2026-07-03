@@ -63,7 +63,7 @@ def get_api_key():
     """Gets the Gemini API key from Streamlit secrets, or asks the user for it."""
     if "GOOGLE_API_KEY" in st.secrets:
         return st.secrets["GOOGLE_API_KEY"]
-    return st.text_input("Apni Gemini API key daalein:", type="password")
+    return st.text_input("Enter your Gemini API key:", type="password")
 
 
 # ---------- Streamlit UI ----------
@@ -83,7 +83,7 @@ query = st.text_input("What do you want to know about this file?")
 
 if st.button("Ask"):
     if not api_key:
-        st.error("Pehle apni Gemini API key daalein.")
+        st.error("First, enter your Gemini API key.")
     elif not uploaded_file:
         st.error("Upload ur file first.")
     elif not query:
