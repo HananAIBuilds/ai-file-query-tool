@@ -100,6 +100,10 @@ if st.button("Ask"):
                 prompt = f"""My data is provided below. You carefully read and review it 
                 and answer any questions asked by the user in a well-organized and simple manner, 
                 strictly based on that data.
+                Ensure that if the user does not select a specific language, your 'default' response is in plain English or Roman Urdu. 
+                If the user desires a response in a different language, they will specify this in their query; otherwise, 
+                your tone should be in plain English. However, if the user communicates in Roman Urdu, 
+                the response should also be provided in Roman Urdu.
 
 User question: {query}
 
