@@ -75,7 +75,7 @@ st.write("Upload your file here (.txt, .pdf, .docx, .csv, .xlsx) and Ask quries 
 api_key = get_api_key()
 
 uploaded_file = st.file_uploader(
-    "File chunein",
+    "Select file",
     type=["txt", "pdf", "docx", "csv", "xlsx"]
 )
 
