@@ -77,4 +77,4 @@ AI Response:
 ## Author
 
 Abdul Hanan — BSIT student, Machine Learning & AI enthusiast
-[GitHub](https://github.com/YOUR_USERNAME) · [LinkedIn](https://www.linkedin.com/in/abdul-hanan-0772952b4)
+[GitHub](https://github.com/HananAIBuilds/) · [LinkedIn](https://www.linkedin.com/in/abdul-hanan-0772952b4?utm_source=share_via&utm_content=profile&utm_medium=member_android)
