@@ -2,18 +2,20 @@
 AI Multi-Format File Query Tool — Streamlit Web App
 -----------------------------------------------------
 Upload a .txt, .pdf, .docx, .csv, or .xlsx file and ask questions
-about its content, powered by the Gemini API.
+about its content, powered by the Gemini & Groq API 
 
 Run locally with:
     streamlit run app.py
 
-Deploy on Streamlit Community Cloud and add your GOOGLE_API_KEY
+Deploy on Streamlit Community Cloud and add your GOOGLE_API_KEY, GROQ_API_KEY.
 under Settings -> Secrets as:
     GOOGLE_API_KEY = "your_key_here"
+    GROQ_API_KEY = "your_key_here"
 """
 
 import streamlit as st
 from google import genai
+from groq import Groq
 
 
 def read_file(uploaded_file):
@@ -65,6 +67,40 @@ def get_api_key():
         return st.secrets["GOOGLE_API_KEY"]
     return st.text_input("Enter your Gemini API key:", type="password")
 
+def get_groq_api_key():
+    """Gets the Groq API key from Streamlit secrets."""
+    if "GROQ_API_KEY" in st.secrets:
+        return st.secrets["GROQ_API_KEY"]
+    return None  
+
+def generate_response(prompt_text, google_api_key, groq_api_key):
+    """Try Gemini first; if it fails (quota, network, etc.), fall back to Groq."""
+    try:
+        client = genai.Client(api_key=google_api_key)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt_text
+        )
+        return response.text
+    
+    except Exception as e:
+        print(f"Gemini failed, falling back to Groq. Error: {e}")
+        
+        if not groq_api_key:
+            return "I apologize, the AI service (Gemini) is temporarily unavailable, and no backup is configured. Please try again shortly."
+        
+        try:
+            groq_client = Groq(api_key=groq_api_key)
+            groq_response = groq_client.chat.completions.create(
+                model="llama-3.1-8b-instant",
+                messages=[{"role": "user", "content": prompt_text}]
+            )
+            return groq_response.choices[0].message.content
+        
+        except Exception as groq_error:
+            print(f"Groq also failed. Error: {groq_error}")
+            return "I apologize, our AI service is temporarily unavailable. Please try again in a moment."
+
 
 # ---------- Streamlit UI ----------
 
@@ -73,6 +109,7 @@ st.title("📄 AI File Query Tool")
 st.write("Upload your file here (.txt, .pdf, .docx, .csv, .xlsx) and Ask quries about it.")
 
 api_key = get_api_key()
+groq_api_key = get_groq_api_key() 
 
 uploaded_file = st.file_uploader(
     "Select file",
@@ -105,16 +142,11 @@ if st.button("Ask"):
                 your tone should be in plain English. However, if the user communicates in Roman Urdu, 
                 the response should also be provided in Roman Urdu.
 
-User question: {query}
+                User question: {query}
 
-Data:
-{my_data}
-"""
+                Data:    {my_data}    
+                                    """
 
-                response = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=prompt
-                )
-
+                answer_text = generate_response(prompt, api_key, groq_api_key)
                 st.subheader("AI Response:")
-                st.write(response.text)
+                st.write(answer_text)
