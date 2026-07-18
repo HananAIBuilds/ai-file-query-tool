@@ -1,10 +1,10 @@
 # AI Multi-Format File Query Tool
 
-A lightweight Python tool that lets you "chat" with your own files. Upload a `.txt`, `.pdf`, `.docx`, `.csv`, or `.xlsx` file, ask a question in plain language, and get an AI-generated answer based only on that file's content, powered by Google's Gemini API, with automatic fallback to Groq if Gemini is unavailable.
+A lightweight Python tool that lets you "chat" with your own files. Upload a `.txt`, `.pdf`, `.docx`, `.csv`, or `.xlsx` file, ask a question in plain language, and get an AI-generated answer based only on that file's content — powered by Google's Gemini API, with automatic fallback to Groq if Gemini is unavailable.
 
 ## Why I built this
 
-Most tutorials teach AI concepts in isolation, API calls, prompt engineering, file handling, without connecting them into something usable. This project combines all three into a single working tool: it reads real data from multiple file formats, securely calls an LLM, and returns a context-aware answer, entirely from scratch.
+Most tutorials teach AI concepts in isolation — API calls, prompt engineering, file handling — without connecting them into something usable. This project combines all three into a single working tool: it reads real data from multiple file formats, securely calls an LLM, and returns a context-aware answer, entirely from scratch.
 
 ## Features
 
@@ -17,12 +17,12 @@ Most tutorials teach AI concepts in isolation, API calls, prompt engineering, fi
 ## Tech Stack
 
 - Python 3.13
-- [Google Gemini API](https://ai.google.dev/) (`google-genai`), primary LLM
-- [Groq API](https://groq.com/) (`groq`), fallback LLM (Llama 3.1 8B Instant)
-- `pypdf`, PDF text extraction
-- `python-docx`, Word document parsing
-- `openpyxl`, Excel file parsing
-- Built-in `csv` module, CSV parsing
+- [Google Gemini API](https://ai.google.dev/) (`google-genai`) — primary LLM
+- [Groq API](https://groq.com/) (`groq`) — fallback LLM (Llama 3.1 8B Instant)
+- `pypdf` — PDF text extraction
+- `python-docx` — Word document parsing
+- `openpyxl` — Excel file parsing
+- Built-in `csv` module — CSV parsing
 
 ## How It Works
 
@@ -31,7 +31,7 @@ Most tutorials teach AI concepts in isolation, API calls, prompt engineering, fi
 3. The user types a question about the file.
 4. The extracted content + question are combined into a single prompt.
 5. The prompt is sent to the Gemini API. If Gemini fails for any reason (rate limit, quota, network issue), the tool automatically retries the same prompt with Groq instead.
-6. The model's answer is printed/displayed back to the user, the fallback happens transparently, without interrupting the experience.
+6. The model's answer is printed/displayed back to the user — the fallback happens transparently, without interrupting the experience.
 
 ## Setup
 
@@ -57,7 +57,7 @@ Most tutorials teach AI concepts in isolation, API calls, prompt engineering, fi
    export GROQ_API_KEY="your_groq_api_key_here"
    ```
 
-   > `GROQ_API_KEY` is optional, the tool works with only `GOOGLE_API_KEY` set, but without it there's no automatic fallback if Gemini's quota runs out.
+   > `GROQ_API_KEY` is optional — the tool works with only `GOOGLE_API_KEY` set, but without it there's no automatic fallback if Gemini's quota runs out.
 
 4. Run the script:
    ```bash
@@ -97,9 +97,9 @@ AI Response:
 
 🔗 Try it here: [ai-file-query-tool.streamlit.app](https://ai-file-query-tool.streamlit.app/)
 
-Upload a file, ask a question, get an instant AI-generated answer, no setup required.
+Upload a file, ask a question, get an instant AI-generated answer — no setup required.
 
 ## Author
 
-Abdul Hanan, BSIT student, Machine Learning & AI enthusiast
+Abdul Hanan — BSIT student, Machine Learning & AI enthusiast
 [GitHub](https://github.com/HananAIBuilds/) · [LinkedIn](https://www.linkedin.com/in/abdul-hanan-0772952b4?utm_source=share_via&utm_content=profile&utm_medium=member_android)
